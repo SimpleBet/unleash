@@ -20,7 +20,6 @@ class UnleashProxySettings extends UnleashSettings {
         );
 
   final String authKey;
-  final String unleashProxyApi;
 
   @override
   Map<String, String> toHeaders() {
@@ -33,7 +32,7 @@ class UnleashProxySettings extends UnleashSettings {
 
   @override
   Uri get featureUrl => Uri.parse(
-        join(unleashProxyApi.toString(), 'proxy'),
+        join(unleashApi.toString(), 'proxy'),
       );
 }
 

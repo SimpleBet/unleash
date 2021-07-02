@@ -1,12 +1,12 @@
 /// See https://unleash.github.io/docs/api/client/features
 class Features {
-  Features({this.version, this.features});
+  Features({this.version, this.features, this.variants});
 
   factory Features.fromJson(Map<String, dynamic> json) {
     var features = <FeatureToggle>[];
-    if (json['features'] != null) {
+    if (json['toggles'] != null) {
       features = <FeatureToggle>[];
-      json['features'].forEach((dynamic v) {
+      json['toggles'].forEach((dynamic v) {
         features.add(FeatureToggle.fromJson(v as Map));
       });
     }
@@ -19,6 +19,7 @@ class Features {
 
   final int? version;
   final List<FeatureToggle>? features;
+  final List<Variant>? variants;
 }
 
 class FeatureToggle {
@@ -28,6 +29,7 @@ class FeatureToggle {
     this.enabled,
     this.strategies,
     this.strategy,
+    this.variant,
   });
 
   factory FeatureToggle.fromJson(Map json) {
@@ -39,12 +41,18 @@ class FeatureToggle {
       });
     }
 
+    Variant? variant;
+    if (json['variant'] != null) {
+      variant = Variant.fromJson(json['variant'] as Map);
+    }
+
     return FeatureToggle(
       name: json['name'] as String?,
       description: json['description'] as String?,
       enabled: json['enabled'] as bool?,
       strategies: strategies,
       strategy: json['strategy'] as String?,
+      variant: variant,
     );
   }
 
@@ -53,6 +61,7 @@ class FeatureToggle {
   final bool? enabled;
   final List<Strategy>? strategies;
   final String? strategy;
+  final Variant? variant;
 }
 
 class Strategy {
@@ -69,4 +78,24 @@ class Strategy {
 
   final String? name;
   final Map<String, dynamic>? parameters;
+}
+
+class Variant {
+  Variant({
+    this.name,
+    this.description,
+    this.enabled,
+  });
+
+  factory Variant.fromJson(Map json) {
+    return Variant(
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      enabled: json['enabled'] as bool?,
+    );
+  }
+
+  final String? name;
+  final String? description;
+  final bool? enabled;
 }

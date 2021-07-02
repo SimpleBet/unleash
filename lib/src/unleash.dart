@@ -19,6 +19,21 @@ class UnleashProxy extends Unleash {
 
   @override
   Future<void> _register() async {}
+
+  static Future<Unleash> init(
+    UnleashSettings settings, {
+    http.Client? client,
+    ReadBackup? readBackup,
+    WriteBackup? writeBackup,
+    UpdateCallback? onUpdate,
+  }) =>
+      Unleash.init(
+        settings,
+        client: client,
+        readBackup: readBackup,
+        writeBackup: writeBackup,
+        onUpdate: onUpdate,
+      );
 }
 
 class Unleash {
