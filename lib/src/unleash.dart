@@ -12,6 +12,15 @@ import 'package:unleash/src/unleash_settings.dart';
 
 typedef UpdateCallback = void Function();
 
+class UnleashProxy extends Unleash {
+  UnleashProxy(UnleashProxySettings settings, UpdateCallback? _onUpdate,
+      http.Client _client)
+      : super._internal(settings, _onUpdate, _client);
+
+  @override
+  Future<void> _register() async {}
+}
+
 class Unleash {
   Unleash._internal(this.settings, this._onUpdate, this._client);
 

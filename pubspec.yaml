@@ -1,6 +1,6 @@
 name: unleash
 description: A dart client for Unleash. Unleash is a simple and easy to use feature toggle (feature flag) service.
-version: 0.3.0
+version: 0.3.1
 homepage: https://github.com/ueman/unleash
 repository: https://github.com/ueman/unleash
 issue_tracker: https://github.com/ueman/unleash/issues

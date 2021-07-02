@@ -1,6 +1,39 @@
 import 'package:path/path.dart';
 import 'package:unleash/unleash.dart';
 
+class UnleashProxySettings extends UnleashSettings {
+  UnleashProxySettings({
+    required String appName,
+    required String instanceId,
+    required Uri unleashProxyApi,
+    required this.authKey,
+    Duration? pollingInterval = const Duration(seconds: 15),
+    Duration? metricsReportingInterval = const Duration(milliseconds: 10000),
+    List<ActivationStrategy>? strategies = const [],
+  }) : super(
+          appName: appName,
+          instanceId: instanceId,
+          unleashApi: unleashProxyApi,
+          pollingInterval: pollingInterval,
+          metricsReportingInterval: metricsReportingInterval,
+          strategies: strategies,
+        );
+
+  final String authKey;
+
+  @override
+  Map<String, String> toHeaders() {
+    return {
+      'UNLEASH-APPNAME': appName,
+      'UNLEASH-INSTANCEID': instanceId,
+      'AUTHORIZATION': authKey,
+    };
+  }
+
+  @override
+  Uri get featureUrl => Uri.parse(unleashApi.toString());
+}
+
 class UnleashSettings {
   const UnleashSettings(
       {required this.appName,
